@@ -1,5 +1,3 @@
-import { Formik, Field } from 'formik';
-
 export const SearchForm = ({ onChangeSerch }) => {
     return (
         <div>

@@ -1,5 +1,4 @@
 import { Component } from 'react';
-import { nanoid } from 'nanoid';
 import { fetchImeges } from 'api';
 import { ImegeGallery } from './ImegeGallery/ImegeGallery';
 import { AddButton } from './AddButton/AddButton';
