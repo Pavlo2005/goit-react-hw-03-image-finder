@@ -1,14 +1,17 @@
 import { Component } from 'react';
 import { fetchImeges } from 'api';
+import { Bars } from 'react-loader-spinner';
 import { ImegeGallery } from './ImegeGallery/ImegeGallery';
 import { AddButton } from './AddButton/AddButton';
+import { Layout } from './Layout';
 import { SearchForm } from './SearchForm/SearchForm';
+import { ErrorMessage } from './ErrorMessage';
 
 export class App extends Component {
   state = {
     imeges: [],
     loader: false,
-    error: false,
+    error: true,
     page: 1,
     search: '',
     mounted: true,
@@ -81,17 +84,29 @@ export class App extends Component {
   }
 
   render() {
-    const { imeges, loader } = this.state;
+    const { imeges, loader, error } = this.state;
     return (
-      <>
+      <Layout>
         <SearchForm onChangeSerch={this.changeSearch}></SearchForm>
         {imeges.length > 0 && (
           <ImegeGallery imeges={imeges}></ImegeGallery>)}
-        {/* {loader && (
-          <Loader></Loader>)} */}
-        {(!loader || imeges.length > 0) && (
-          <AddButton onAddImeges={this.addImeges}></AddButton>)}
-      </>
+        {loader && (
+          <Bars
+            height="80"
+            width="80"
+            color="#4fa94d"
+            ariaLabel="bars-loading"
+            visible={true}
+          />)}
+        {error && (
+          <ErrorMessage> Whoops! Error! Please reload this page!</ErrorMessage>
+        )
+        }
+        {
+          (!loader || imeges.length > 0) && (
+            <AddButton onAddImeges={this.addImeges}></AddButton>)
+        }
+      </Layout >
     );
   }
 }
