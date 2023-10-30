@@ -12,6 +12,7 @@ export class App extends Component {
     imeges: [],
     loader: false,
     error: true,
+    add: true,
     page: 1,
     search: '',
     mounted: true,
@@ -72,6 +73,12 @@ export class App extends Component {
 
       const newImeges = await fetchImeges(search, page);
 
+      if (page*12 >= newImeges.totalHits){ 
+        this.setState(() => ({
+          add: false,
+        }))
+      }
+
       this.setState(prevState => ({
         imeges: [...prevState.imeges, ...newImeges.hits],
         page: page + 1,
@@ -84,7 +91,7 @@ export class App extends Component {
   }
 
   render() {
-    const { imeges, loader, error } = this.state;
+    const { imeges, loader, error, add } = this.state;
     return (
       <Layout>
         <SearchForm onChangeSerch={this.changeSearch}></SearchForm>
@@ -102,8 +109,7 @@ export class App extends Component {
           <ErrorMessage> Whoops! Error! Please reload this page!</ErrorMessage>
         )
         }
-        {
-          (!loader || imeges.length > 0) && (
+        {((!loader || imeges.length > 0) & add) && (
             <AddButton onAddImeges={this.addImeges}></AddButton>)
         }
       </Layout >

@@ -40,11 +40,8 @@ export class ImegCard extends Component {
 
         return (
             <Container>
-                <Card>
+                <Card onClick={this.openModal}>
                     <Imeg src={`${imeg.webformatURL}`} alt="" />
-                    <ActionBar>
-                        <button onClick={this.openModal}>Open modal</button>
-                    </ActionBar>
                 </Card>
 
                 <Modal
