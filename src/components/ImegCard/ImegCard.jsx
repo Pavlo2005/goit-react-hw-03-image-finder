@@ -1,7 +1,6 @@
 import {
     Card,
     Container,
-    ActionBar,
     Imeg,
     ImegContainer
 } from "./ImegCard.styled";
