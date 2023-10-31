@@ -26,6 +26,12 @@ export class App extends Component {
 
       const newImeges = await fetchImeges(page);
 
+      if (page * 12 >= newImeges.totalHits) {
+        this.setState(() => ({
+          add: false,
+        }))
+      }
+
       this.setState(prevState => ({
         imeges: [...newImeges.hits],
         page: 2,
@@ -51,6 +57,16 @@ export class App extends Component {
 
         const newImeges = await fetchImeges(search, page);
 
+        if (page * 12 >= newImeges.totalHits) {
+          this.setState(() => ({
+            add: false,
+          }))
+        } else {
+          this.setState(() => ({
+            add: true,
+          }))
+        }
+
         this.setState(prevState => ({
           imeges: [...newImeges.hits],
           page: 2,
@@ -73,7 +89,7 @@ export class App extends Component {
 
       const newImeges = await fetchImeges(search, page);
 
-      if (page*12 >= newImeges.totalHits){ 
+      if (page * 12 >= newImeges.totalHits) {
         this.setState(() => ({
           add: false,
         }))
@@ -109,8 +125,13 @@ export class App extends Component {
           <ErrorMessage> Whoops! Error! Please reload this page!</ErrorMessage>
         )
         }
-        {((!loader || imeges.length > 0) & add) && (
-            <AddButton onAddImeges={this.addImeges}></AddButton>)
+        {!(loader || imeges.length == 0 || !add) && (
+          <AddButton onAddImeges={this.addImeges}></AddButton>
+        )
+        }
+        {(imeges.length == 0 || !add) && (
+          <div> This is the last page</div>
+        )
         }
       </Layout >
     );
