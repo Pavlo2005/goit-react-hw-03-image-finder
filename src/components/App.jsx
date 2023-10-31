@@ -125,11 +125,11 @@ export class App extends Component {
           <ErrorMessage> Whoops! Error! Please reload this page!</ErrorMessage>
         )
         }
-        {!(loader || imeges.length == 0 || !add) && (
+        {!(loader || imeges.length === 0 || !add) && (
           <AddButton onAddImeges={this.addImeges}></AddButton>
         )
         }
-        {(imeges.length == 0 || !add) && (
+        {(imeges.length === 0 || !add) && (
           <div> This is the last page</div>
         )
         }
